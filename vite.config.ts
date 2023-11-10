@@ -5,6 +5,7 @@ import proxy from './config/dev.config'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: './',
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.mjs'],
     alias: {
@@ -19,6 +20,16 @@ export default defineConfig({
     open: true,
     proxy: {
       ...proxy
+    }
+  },
+  build: {
+    minify: 'terser', //必须开启：使用terserOptions才有效果
+    terserOptions: {
+      // 打包后删除console debugger
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
     }
   }
 })
