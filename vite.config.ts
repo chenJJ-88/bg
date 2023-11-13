@@ -10,7 +10,7 @@ export default defineConfig({
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.mjs'],
     alias: {
       '@': path.resolve(__dirname, './src'),
-      // '': path.resolve(__dirname, './pubilc'),
+      '!': path.resolve(__dirname, './'), // 空字符串别名指向最外层文件夹
     }
   },
   // 代理
@@ -31,5 +31,8 @@ export default defineConfig({
         drop_debugger: true
       }
     }
+  },
+  esbuild: {
+
   }
 })
