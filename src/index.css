@@ -241,8 +241,3 @@ input::-webkit-input-placeholder {
   /* 修改颜色 */
   color: #fff !important;
 }
-
-@font-face {
-  font-family: YouSheBiaoTiHei;
-  src: url("!/public/font/YouSheBiaoTiHei-2.ttf");
-}

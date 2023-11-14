@@ -1,15 +1,15 @@
 import React from 'react'
 import { styled } from 'styled-components'
-import { Tooltip } from 'antd'
-function Index({ text, item, onCardClick }) {
+type Iprops = {
+  text: string
+  item: any
+  onCardClick: (prs: any) => void
+}
+function Index({ text, item, onCardClick }: Iprops) {
   return (
-    <Root onClick={() => onCardClick(item)}>
+    <Root onClick={() => onCardClick(item)} title={text}>
       {
-        text.length > 8 ?
-          <Tooltip title={text} overlayInnerStyle={{ fontSize: 16 }}>
-            {text.substring(0, 8) + '...'}
-          </Tooltip> :
-          text
+        text
       }
     </Root>
   )
@@ -27,4 +27,7 @@ const Root = styled.div`
   margin-right:5px;
   margin-bottom:16px;
   cursor: pointer;
+    overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `

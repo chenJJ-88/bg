@@ -59,7 +59,7 @@ function Index() {
   return (
     <Root>
       <Title title={'体征指标来源 '}></Title>
-      <TextArea text={`${dataObj.cityNum}个市级部门，${dataObj.countyNum}个区县级部门，${dataObj.streetNum}个镇（街道）。共计${dataObj.total}个体征数据。`}></TextArea>
+      <TextArea text={`${dataObj.cityNum || ''}个市级部门，${dataObj.countyNum || ''}个区县级部门，${dataObj.streetNum || ''}个镇（街道）。共计${dataObj.total}个体征数据。`}></TextArea>
       <div className='cardArea'>
         {
           dataSource.map(item => {

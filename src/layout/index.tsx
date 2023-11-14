@@ -8,6 +8,7 @@ const MyContent = styled(Content)`
     width: 3480px;
     height: 1044px;
     position: relative;
+      border: 1px solid #000 !important;
 `
 
 export default ({ children }: { children: any }) => {
