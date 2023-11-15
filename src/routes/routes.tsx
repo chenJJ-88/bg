@@ -4,8 +4,8 @@ import Layout from '@/layout';
 const routesMap = [
   { path: '/home', component: lazy(() => import('@/pages/Home')) },
   { path: '/login', component: lazy(() => import('@/pages/Login')) },
-  { path: '/sign', component: lazy(() => import('@/pages/Sign')) },
-  { path: '/', component: lazy(() => import('@/pages/manageSystem')) },
+  { path: '/', component: lazy(() => import('@/pages/Sign')) },
+  // { path: '/', component: lazy(() => import('@/pages/manageSystem')) },
 ];
 
 function RootRoutes() {
