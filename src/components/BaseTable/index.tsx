@@ -5,7 +5,7 @@ import TableWrap from './style.js';
 import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
 
 // 获取唯一识别符
-const getRowUniqueId = (record, rowKey) => {
+const getRowUniqueId = (record: any, rowKey: React.Key) => {
   //  instanceof Function
   if (rowKey instanceof Function) {
     return rowKey(record);

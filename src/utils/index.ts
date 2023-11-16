@@ -1,4 +1,8 @@
-
+/**
+ * @description 转换为query 参数
+ * @param data 一个post请求的对象[key:string]：any
+ * @returns 
+ */
 const jsonToUrl = (data: any) => {
   return Object.keys(data).map(key => {
     return `${encodeURIComponent(key)}=${data[key] !== undefined && data[key] !== null ? encodeURIComponent(data[key]) : ''}`
