@@ -98,7 +98,7 @@ export default function request(url: string, options: any = {}) {
   if (newOptions.params) {
     fetchUrl = url + '?' + jsonToUrl(newOptions.params)
   }
-  return fetch(fetchUrl, options)
+  return fetch(fetchUrl, newOptions)
     .then(checkStatus)
     .then(res => {
       if (options.method === 'DELETE' || res.status === 204 || res.status === 205) {
@@ -107,7 +107,7 @@ export default function request(url: string, options: any = {}) {
       return res.json()
     })
     .then(res => {
-      return checkServerCode(res, options)
+      return checkServerCode(res, newOptions)
     })
     .catch(error => {
       if (error instanceof RequestError) {

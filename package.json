@@ -5,14 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npm run zip",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "zip": "node ./script/zip.cjs"
   },
   "dependencies": {
     "@ant-design/pro-components": "^2.6.35",
     "@ant-design/use-emotion-css": "^1.0.4",
     "antd": "^5.11.0",
+    "archiver": "^6.0.1",
     "axios": "^1.6.1",
     "moment": "^2.29.4",
     "qs": "^6.11.2",
