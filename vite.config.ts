@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path';
 import proxy from './config/dev.config'
+import VueRouter from 'unplugin-vue-router/vite'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],

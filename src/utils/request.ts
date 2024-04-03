@@ -79,7 +79,7 @@ export default function request(url: string, options: any = {}) {
     showMsg: false
   }
 
-  const newOptions = { ...options, ...defaultOptions }
+  const newOptions = { ...defaultOptions, ...options, }
   // 如果自己加的有
   newOptions.headers = {
     ...newOptions.headers,

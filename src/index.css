@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body,
 div,
@@ -104,10 +108,8 @@ section {
   display: block;
 }
 
-html,
+
 body {
-  width: 3480px !important;
-  height: 1044px !important;
   margin: 0;
   padding: 0;
 }
@@ -154,87 +156,9 @@ table {
 
 #root {
   width: 3480px !important;
-  height: 1044px !important;
+  height: 1040px !important;
   margin: 0 auto;
   overflow-y: hidden;
-}
-
-.allModal .ant-modal-content {
-  background-color: transparent;
-}
-
-.allModal .ant-modal-body {
-  padding: 0;
-}
-
-.carousel-wrapper {
-  position: absolute;
-  width: 440px;
-  height: 590px;
-  margin: auto;
-  left: 0;
-  right: 0;
-  top: 120px;
-  padding-top: 350px;
-  margin-top: -350px;
-}
-
-.carousel {
-  position: relative;
-  width: 100%;
-  margin: auto;
-  height: 100%;
-}
-
-.carouselContent {
-  transform-style: preserve-3d;
-  width: 100%;
-}
-
-.itemWrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform-style: preserve-3d;
-  width: 100%;
-}
-
-.itemWrapper .rotateLayer .bgAndBlurLayer {
-  border-radius: 8px;
-  background: transparent;
-  transition: filter 0.45s;
-  margin: auto;
-  /* transform: scale(1.1); */
-}
-
-.itemWrapper .rotateLayer .bgAndBlurLayer .contentLayer {
-  transition: opacity 0.65s;
-}
-
-.img-wrapper {
-  height: 590px;
-  background-size: cover;
-  background-position: center;
-}
-
-.circle_left_btn {
-  position: absolute;
-  width: 240px;
-  height: 240px;
-  border-radius: 100%;
-  top: 180px;
-  left: 695px;
-  cursor: pointer;
-}
-
-.circle_right_btn {
-  position: absolute;
-  width: 240px;
-  height: 240px;
-  border-radius: 100%;
-  top: 180px;
-  left: 1435px;
-  cursor: pointer;
 }
 
 input::-webkit-input-placeholder {

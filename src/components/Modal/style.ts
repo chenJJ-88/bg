@@ -1,6 +1,6 @@
 import { Modal } from 'antd';
 import { styled } from 'styled-components';
-const ModalStyle: any = styled(Modal)`
+const ModalStyle = styled<any>(Modal)`
   // 修改默认样式
   .ant-modal-wrap {
     position: absolute !important;
