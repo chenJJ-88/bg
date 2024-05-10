@@ -1,8 +1,7 @@
 import React from 'react'
 import { Table } from 'antd'
-import { styled } from 'styled-components'
+import { styled } from 'troyfe'
 /**
- * @description 列表组件,基于antd table 封装的 可适用于大屏表格组件
  * @typedef {Object} IndexProps
  * @property {DataSourceItem[]} [dataSource] - 数据源
  * @property {ColumnItem[]} [columns] - 列配置
@@ -15,17 +14,7 @@ import { styled } from 'styled-components'
  * @property {Function} [onChangePage] - 页码改变时的回调函数
  */
 
-interface DataSourceItem {
-  dataSource: []
-  columns: []
-  theadHeight?: number
-  theadFontSize?: number
-  tbodyCellHeight?: number
-  tbodyCellFontSize?: number
-  pagination?: {}
-  rowSelection?: {}
-  onChangePage?: () => void
-}
+
 export default function Index({
   dataSource = [],
   columns = [],
@@ -37,7 +26,7 @@ export default function Index({
   rowSelection = {},
   onChangePage
 
-}: DataSourceItem) {
+}) {
 
   return (
     <TableWarper
@@ -66,7 +55,7 @@ export default function Index({
     </TableWarper>
   )
 }
-const TableWarper = styled<any>(Table)`
+const TableWarper = styled(Table)`
 
   width: 100%;
   .ant-table{

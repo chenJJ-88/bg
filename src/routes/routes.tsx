@@ -10,7 +10,6 @@ const routesMap = [
 
 function RootRoutes() {
   return (
-
     <Routes>
       {
         routesMap.map((item: { path: string, component: any }) => {

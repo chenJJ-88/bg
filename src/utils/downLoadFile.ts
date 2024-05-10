@@ -46,7 +46,7 @@ const fileDownLoad = (url: string, options: any, fileType: string = 'application
 }
 
 /**
- * @description 更具某个code去重
+ * @description 根据某个code去重
  * @param {Array} array [{ id: 1, name: 'Alice' },{ id: 2, name: 'Bob'}, { id: 2, name: 'Eve' }]
  * @param {String} code 
  * @returns {Array}
@@ -67,7 +67,54 @@ const removeDuplicatesByCode = <T>(array: T[], code: keyof T): T[] => {
 
   return result;
 }
+
+const getFileNameFronHeaders = (headers: Headers): any => {
+  if (headers.get('content-disposition')) {
+    const fileCode = headers.get('content-disposition')?.split('filename=')[1]
+    return decodeURI(fileCode as string)
+  }
+}
+const createDownloadFile = (fileUrl: string, fileName: string) => {
+  const fileCode = document.createElement('a');
+  fileCode.style.display = 'none';
+  fileCode.href = fileUrl;
+  fileCode.download = fileName;
+  document.body.appendChild(fileCode);
+  return fileCode;
+}
+const cleanUp = (fileUrl: string, downFile: HTMLAnchorElement) => {
+  window.URL.revokeObjectURL(fileUrl);
+  document.body.removeChild(downFile);
+}
+/**
+ * @description 文件下载
+ * @param url 下载地址
+ * @param options fetch 配置 method | headers | body | params | mode | cache 
+ */
+const filedDownLoadOfFetch = async (url: string, options?: any) => {
+  try {
+    const requestOptions = {
+      method: 'GET',
+      ...options
+    }
+    const response = await fetch(url, requestOptions)
+    if (!response.ok) {
+      throw new Error('文件下载失败')
+    }
+    const blob = await response.blob();//将返回的流转为blob
+    // 从headers中获取filename
+    const fileName = getFileNameFronHeaders(response.headers)
+    // 创建URL对象
+    const fileUrl = (window.URL || window.webkitURL).createObjectURL(blob);
+    const downFile = createDownloadFile(fileUrl, fileName);
+    downFile.click();
+    cleanUp(fileUrl, downFile);
+  } catch (error) {
+
+  }
+}
 export {
   fileDownLoad,
-  removeDuplicatesByCode
+  removeDuplicatesByCode,
+  filedDownLoadOfFetch
 }

@@ -1,8 +1,16 @@
-
+/*
+ * @Description: -
+ * @Version: -
+ * @Author: aifd
+ * @Date: 2023-10-25 09:22:17
+ * @LastEditors: aifd
+ * @LastEditTime: 2023-10-31 18:40:15
+ * @FilePath: \cz-event-hub\src\components\chengDu\chengduChart.js
+ */
 import React, { useState, useEffect } from 'react';
 import * as echarts from 'echarts';
 import { countryData } from './areaData'
-import { request } from 'utils';
+import request from '@/utils/request';
 
 export default function Index(props) {
 
@@ -99,7 +107,7 @@ export default function Index(props) {
 
 
     request(
-      { url: '/apSign/keeper-special/nationwide/projectList' },
+      '/apSign/keeper-special/nationwide/projectList',
       {
         method: 'GET'
       }
@@ -151,53 +159,135 @@ export default function Index(props) {
           data = dats
         }
       }
-      const option = {
-        visualMap: [
-          {
-            right: 90,
-            bottom: '10%',
-            min: 0,
-            max: 1000,
-            show: true,
-            // realtime: false,
-            // calculable: false,
-            seriesIndex: [0],
-            // orient: 'horizontal',
-            textStyle: {
-              color: 'rgba(175,224,254,.9)',
-            },
-            pieces: [
-              // 1~2个项目：62dcfb
-              // 3~5个项目：097cf4
-              // 6个及以上：f2a437
-              {
-                gte: 3,
-                lte: 3,
-                label: '10个以上',
-                color: '#f2a437',
-              },
-              {
-                gte: 2,
-                lte: 2,
-                label: '6~10',
-                color: '#097cf4',
-              },
-              {
-                gte: 1,
-                lte: 1,
-                label: '1~5',
-                color: '#62dcfb',
-              }
-            ],
+
+    });
+    const option = {
+      visualMap: [
+        {
+          right: 90,
+          bottom: '10%',
+          min: 0,
+          max: 1000,
+          show: true,
+          // realtime: false,
+          // calculable: false,
+          seriesIndex: [0],
+          // orient: 'horizontal',
+          textStyle: {
+            color: 'rgba(175,224,254,.9)',
           },
-        ],
-        geo: {
-          map: 'china',
-          aspectScale: 0.75, //长宽比
-          zoom: 1.1,
+          pieces: [
+            // 1~2个项目：62dcfb
+            // 3~5个项目：097cf4
+            // 6个及以上：f2a437
+            {
+              gte: 3,
+              lte: 3,
+              label: '10个以上',
+              color: '#f2a437',
+            },
+            {
+              gte: 2,
+              lte: 2,
+              label: '6~10',
+              color: '#097cf4',
+            },
+            {
+              gte: 1,
+              lte: 1,
+              label: '1~5',
+              color: '#62dcfb',
+            }
+          ],
+        },
+      ],
+      geo: {
+        map: 'china',
+        aspectScale: 0.75, //长宽比
+        zoom: 1.1,
+        roam: false,
+        itemStyle: {
+          normal: {
+            areaColor: {
+              type: 'radial',
+              x: 0.5,
+              y: 0.5,
+              r: 0.8,
+              colorStops: [{
+                offset: 0,
+                color: '#757f88' // 0% 处的颜色
+              }, {
+                offset: 1,
+                color: '#757f88'  // 100% 处的颜色
+              }],
+              globalCoord: true // 缺省为 false
+            },
+            shadowColor: 'rgb(58,115,192)',
+            shadowOffsetX: 10,
+            shadowOffsetY: 11
+          },
+          emphasis: {
+            areaColor: '#757f88',
+            borderWidth: 0,
+            color: 'green',
+            label: {
+              show: false
+            }
+          }
+        },
+        regions: [{
+          name: '南海诸岛',
+          itemStyle: {
+            areaColor: 'rgba(0, 10, 52, 1)',
+            borderColor: 'rgba(0, 10, 52, 1)',
+            normal: {
+              opacity: 0,
+              label: {
+                show: false,
+                color: "#009cc9",
+              }
+            }
+          },
+        }],
+      },
+      series: [
+        {
+          type: 'map',
           roam: false,
+          label: {
+            normal: {
+              show: true,
+              textStyle: {
+                color: '#fff'//'#1DE9B6'
+              }
+            },
+            emphasis: {
+              textStyle: {
+                color: '#fff'
+              }
+            }
+          },
           itemStyle: {
             normal: {
+              borderColor: 'rgb(147, 235, 248)',
+              borderWidth: 1,
+              areaColor: {
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.8,
+                colorStops: [{
+                  offset: 0,
+                  color: '#757f88'//'#09132c' // 0% 处的颜色
+                }, {
+                  offset: 1,
+                  color: '#757f88'  // 100% 处的颜色
+                }],
+                globalCoord: true // 缺省为 false
+              },
+            },
+            emphasis: {
+              disabled: true,
               areaColor: {
                 type: 'radial',
                 x: 0.5,
@@ -212,176 +302,82 @@ export default function Index(props) {
                 }],
                 globalCoord: true // 缺省为 false
               },
-              shadowColor: 'rgb(58,115,192)',
-              shadowOffsetX: 10,
-              shadowOffsetY: 11
-            },
-            emphasis: {
-              areaColor: '#757f88',
-              borderWidth: 0,
-              color: 'green',
-              label: {
-                show: false
-              }
             }
           },
-          regions: [{
-            name: '南海诸岛',
-            itemStyle: {
-              areaColor: 'rgba(0, 10, 52, 1)',
-              borderColor: 'rgba(0, 10, 52, 1)',
-              normal: {
-                opacity: 0,
-                label: {
-                  show: false,
-                  color: "#009cc9",
-                }
-              }
-            },
-          }],
+          zoom: 1.1,
+          map: 'china',
+          data: data,
         },
-        series: [
-          {
-            type: 'map',
-            roam: false,
-            label: {
-              normal: {
-                show: true,
-                textStyle: {
-                  color: '#fff'//'#1DE9B6'
-                }
-              },
-              emphasis: {
-                textStyle: {
-                  color: '#fff'
-                }
-              }
-            },
-            itemStyle: {
-              normal: {
-                borderColor: 'rgb(147, 235, 248)',
-                borderWidth: 1,
-                areaColor: {
-                  type: 'radial',
-                  x: 0.5,
-                  y: 0.5,
-                  r: 0.8,
-                  colorStops: [{
-                    offset: 0,
-                    color: '#757f88'//'#09132c' // 0% 处的颜色
-                  }, {
-                    offset: 1,
-                    color: '#757f88'  // 100% 处的颜色
-                  }],
-                  globalCoord: true // 缺省为 false
-                },
-              },
-              emphasis: {
-                disabled: true,
-                areaColor: {
-                  type: 'radial',
-                  x: 0.5,
-                  y: 0.5,
-                  r: 0.8,
-                  colorStops: [{
-                    offset: 0,
-                    color: '#757f88' // 0% 处的颜色
-                  }, {
-                    offset: 1,
-                    color: '#757f88'  // 100% 处的颜色
-                  }],
-                  globalCoord: true // 缺省为 false
-                },
-              }
-            },
-            zoom: 1.1,
-            map: 'china',
-            data: data,
+        {
+          type: 'effectScatter',
+          coordinateSystem: 'geo',
+          showEffectOn: 'render',
+          zlevel: 1,
+          rippleEffect: {
+            period: 15,
+            scale: 4,
+            brushType: 'fill'
           },
-          {
-            type: 'effectScatter',
-            coordinateSystem: 'geo',
-            showEffectOn: 'render',
-            zlevel: 1,
-            rippleEffect: {
-              period: 15,
-              scale: 4,
-              brushType: 'fill'
+          hoverAnimation: true,
+          label: {
+            normal: {
+              formatter: '{b}',
+              position: 'right',
+              offset: [15, 0],
+              color: '#fff',
+              show: true
             },
-            hoverAnimation: true,
-            label: {
-              normal: {
-                formatter: '{b}',
-                position: 'right',
-                offset: [15, 0],
-                color: '#fff',
-                show: true
-              },
-            },
-            itemStyle: {
-              normal: {
-                color: '#1DE9B6'/* function (value){ //随机颜色
+          },
+          itemStyle: {
+            normal: {
+              color: '#1DE9B6'/* function (value){ //随机颜色
  return "#"+("00000"+((Math.random()*16777215+0.5)>>0).toString(16)).slice(-6);
  }*/,
-                shadowBlur: 10,
-                shadowColor: '#333'
-              }
-            },
-            symbolSize: 7,
-            data: points
-          }, //地图线的动画效果
-          {
-            type: 'lines',
-            zlevel: 2,
-            effect: {
-              show: true,
-              period: 3, //箭头指向速度，值越小速度越快
-              trailLength: 0.2, //特效尾迹长度[0,1]值越大，尾迹越长重
-              symbol: 'arrow', //箭头图标
-              symbolSize: 4, //图标大小
-            },
-            lineStyle: {
-              normal: {
-                color: '#1DE9B6',
-                /* function (value){ //随机颜色
-                
-                ['#f21347','#f3243e','#f33736','#f34131','#f34e2b',
-                '#f56321','#f56f1c','#f58414','#f58f0e','#f5a305',
-                '#e7ab0b','#dfae10','#d5b314','#c1bb1f','#b9be23',
-                '#a6c62c','#96cc34','#89d23b','#7ed741','#77d64c',
-                '#71d162','#6bcc75','#65c78b','#5fc2a0','#5abead',
-                '#52b9c7','#4fb6d2','#4ab2e5']
+              shadowBlur: 10,
+              shadowColor: '#333'
+            }
+          },
+          symbolSize: 7,
+          data: points
+        }, //地图线的动画效果
+        {
+          type: 'lines',
+          zlevel: 2,
+          effect: {
+            show: true,
+            period: 3, //箭头指向速度，值越小速度越快
+            trailLength: 0.2, //特效尾迹长度[0,1]值越大，尾迹越长重
+            symbol: 'arrow', //箭头图标
+            symbolSize: 4, //图标大小
+          },
+          lineStyle: {
+            normal: {
+              color: '#1DE9B6',
+              /* function (value){ //随机颜色
+              
+              ['#f21347','#f3243e','#f33736','#f34131','#f34e2b',
+              '#f56321','#f56f1c','#f58414','#f58f0e','#f5a305',
+              '#e7ab0b','#dfae10','#d5b314','#c1bb1f','#b9be23',
+              '#a6c62c','#96cc34','#89d23b','#7ed741','#77d64c',
+              '#71d162','#6bcc75','#65c78b','#5fc2a0','#5abead',
+              '#52b9c7','#4fb6d2','#4ab2e5']
 return "#"+("00000"+((Math.random()*16777215+0.5)>>0).toString(16)).slice(-6);
 }*/
-                width: 1, //线条宽度
-                opacity: 0.1, //尾迹线条透明度
-                curveness: .3 //尾迹线条曲直度
-              }
-            },
-            data: lines
-          }
-        ]
-      };
-      myChart.setOption(option, true);
-    });
+              width: 1, //线条宽度
+              opacity: 0.1, //尾迹线条透明度
+              curveness: .3 //尾迹线条曲直度
+            }
+          },
+          data: lines
+        }
+      ]
+    };
+    myChart.setOption(option, true);
     return () => {
       myChart.dispose()
     }
   }, [])
-  const getData = async () => {
-    let data = ''
-    await request(
-      { url: '/apSign/keeper-special/nationwide/projectList' },
-      {
-        method: 'GET'
-      }
-    ).then(res => {
-      if (res && res.data) {
-        data = res.data
-      }
-    });
-    return data
-  }
+
   return <div id='city_chart_id' style={{ width: '100%', height: '100%' }}></div>
 }
 
