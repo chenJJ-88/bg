@@ -13,8 +13,6 @@ import { styled } from 'troyfe'
  * @property {RowSelectionConfig} [rowSelection] - 单选 or 多选盒子配置
  * @property {Function} [onChangePage] - 页码改变时的回调函数
  */
-
-
 export default function Index({
   dataSource = [],
   columns = [],
